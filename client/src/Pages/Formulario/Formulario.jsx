@@ -36,9 +36,7 @@ function validate(character) {
     error.species = "species is invalid";
   }
 
-  if (!character.episode) {
-    error.episode = "Necesitas agregas al menos un episodio";
-  }
+  //   error.episodes = "Necesitas agregar un episodio";
 
   return error;
 }
@@ -61,7 +59,6 @@ function Formulario() {
     episode: [],
   });
 
-  console.log(character);
   const handelChange = (e) => {
     setCharacter({ ...character, [e.target.name]: e.target.value });
     let objError = validate({ ...character, [e.target.name]: e.target.value });
@@ -86,7 +83,7 @@ function Formulario() {
       });
     }
   };
-
+  console.log(errors);
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(createCharacter(character));
@@ -98,7 +95,6 @@ function Formulario() {
       episode: [],
     });
     alert("Formulario enviado");
-
     setTimeout(() => {
       navegador("/home");
     }, 1000);
@@ -126,7 +122,8 @@ function Formulario() {
         {errors.species && <p>{errors.species}</p>}
 
         <input type="submit" disabled={Object.keys(errors).length} />
-        {errors.episodes && <p>{errors.episodes}</p>}
+        {errors.episode && <p>{errors.episode}</p>}
+
         {episode.map((e) => {
           return (
             <p key={e.id}>
@@ -135,7 +132,7 @@ function Formulario() {
                 value={e.name}
                 name="episode"
                 id={e.id}
-                onChange={handelCheked}
+                onChange={(e) => handelCheked(e)}
               />
               {e.name}
             </p>

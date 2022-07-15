@@ -12,19 +12,22 @@ const getInfo = async (req, res) => {
 
 const newCharacter = async (req, res) => {
   try {
-    const { name, species, origin, image, created, episode } = req.body;
+    const { name, species, origin, image, episode } = req.body;
 
     const newCharacter = await Character.create({
       name,
       species,
       origin,
       image,
-      created,
       episode,
     });
 
+    const ids = episode.map((e) => e.id);
+    console.log(ids);
+
     const newEpisode = await Episode.findAll({
-      where: { name: episode },
+      where: { id: ids },
+      attribute: ["name"],
     });
 
     await newCharacter.addEpisode(newEpisode);

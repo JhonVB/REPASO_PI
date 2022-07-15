@@ -1,4 +1,9 @@
-import { GET_CHARACTERS, GET_DETAIL, GET_EPISODES } from "./actionsTypes";
+import {
+  GET_CHARACTERS,
+  GET_DETAIL,
+  GET_EPISODES,
+  CREATE_CHARACTER,
+} from "./actionsTypes";
 
 const initialState = {
   characters: [],
@@ -24,6 +29,11 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         episodes: action.payload,
+      };
+    case CREATE_CHARACTER:
+      return {
+        ...state,
+        characters: [...state.characters, action.payload],
       };
 
     default:
